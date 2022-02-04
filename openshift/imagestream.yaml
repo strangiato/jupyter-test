@@ -1,0 +1,19 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: trevors-notebook
+  namespace: odh-j
+  annotations:
+    opendatahub.io/notebook-image-name: Trevors Notebook
+  labels:
+    component.opendatahub.io/name: jupyterhub
+    opendatahub.io/component: 'true'
+    opendatahub.io/notebook-image: 'true'
+spec:
+  tags:
+  - name: v0.1
+    from:
+      kind: ImageStreamTag
+      name: latest
+  lookupPolicy:
+    local: false

@@ -1,0 +1,26 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: trevors-notebook
+  namespace: odh-j
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'trevors-notebook:latest'
+  source:
+    git:
+      ref: main
+      uri: 'https://github.com/strangiato/jupyter-test.git'
+    type: Git
+    contextDir: notebook
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 's2i-minimal-notebook:v0.0.15'
+  triggers:
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
